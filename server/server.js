@@ -1,11 +1,11 @@
-const express = require('express')
-const app = express()
-const Port = 8000
+const dotenv = require('dotenv')
+dotenv.config()
+const app = require('./app')
+const connectDB = require('./database/connectDB')
 
-app.get("/",(req,res)=>{
-    res.send("welcome to my socal media server")
-})
+const Port = 8000
 
 app.listen(Port,function(){
     console.log(`server is runing at http://localhost:${Port}`);
+    connectDB()
 })
