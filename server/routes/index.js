@@ -1,15 +1,15 @@
 const express = require('express')
 const route = express.Router()
 const api = require('./api')
-const basApi = process.env.BASE_API_URL
+const basApi = "/api/v1"
 
+// api url:http://localhost/api/v1
 route.use(basApi,api)
 
 // 404 route error
-route.use("*",(req,res,next)=>{
-    res.send('404 route is not found')
-    next()
-})
+// route.use("/",(req,res,)=>{
+//     res.send('welcome')
+// })
 
 
 module.exports = route

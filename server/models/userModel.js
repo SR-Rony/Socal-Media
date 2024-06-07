@@ -1,4 +1,4 @@
-const { text } = require('express');
+const bcrypt = require("bcryptjs")
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 const {ObjectId} = mongoose.Schema;
@@ -7,26 +7,26 @@ const userModel = new Schema(
     {
         fname: {
             type : String,
-            required:[true,"first name is require"],
+            required:true,
             trim : true,
             text:true
         } ,
         lname: {
             type : String,
-            required:[true,"last name is require"],
+            required:true,
             trim : true,
             text:true
         } ,
         userName: {
             type : String,
-            required:[true,"user name is require"],
+            required:true,
             trim : true,
             text:true,
             unique:true
         } ,
         email : {
             type : String,
-            required : [true,"user email is require"],
+            required : true,
             unique : true,
             trim : true,
             lowercase : true,
@@ -36,7 +36,6 @@ const userModel = new Schema(
                 },
                 message : "Please inter a balide email"
             }
-    
         },
         password : {
             type : String,
@@ -69,7 +68,7 @@ const userModel = new Schema(
         },
         gender:{
             type:String,
-            required:true
+            // required:true
         },
         fridnds:[
             {
@@ -94,12 +93,12 @@ const userModel = new Schema(
                 user:{
                     type:ObjectId,
                     ref : "userModel",
-                    required:true,
+                    // required:true,
                     text:true
                 },
                 createdAd:{
                     type:Date,
-                    required:true
+                    // required:true
                 }
             }
         ],
@@ -155,7 +154,7 @@ const userModel = new Schema(
                 },
                 savedAt:{
                     type:Date,
-                    required: true
+                    // required: true
                 }
             }
         ],
@@ -169,4 +168,4 @@ const userModel = new Schema(
     }
 )
 
-module.exports = mongoose.model("usermodel",userModel)
+module.exports = mongoose.model("Users",userModel)
