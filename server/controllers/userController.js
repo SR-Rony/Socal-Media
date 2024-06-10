@@ -1,3 +1,4 @@
+const { emailValidation, userValidation, userNameValidation } = require("../helpers/validation");
 const Users = require("../models/userModel");
 
 const registerUser = async (req,res)=>{
@@ -20,11 +21,28 @@ const registerUser = async (req,res)=>{
             message:"email already exists"
         })
        }
+       if(!userValidation(fname,3,15)){
+        return res.status(400).send({
+            success:false,
+            message:"f"
+        })
+       }
+
+    //    if(!emailValidation(email)){
+    //     return res.status(400).send({
+    //         success:false,
+    //         message:"please inter your valid Email"
+    //     })
+    //    }
+
+    const addUserName = fname + lname;
+    const finalUserName = await userNameValidation(addUserName)
+
 
        const newUser = await new Users({
             fname,
             lname,
-            userName,
+            userName : finalUserName,
             email,
             password,
             bathMonth,
@@ -43,7 +61,8 @@ const registerUser = async (req,res)=>{
     } catch (error) {
       return res.status(404).send({
                 success:false,
-                message:"user is not create successfull"
+                message:"user is not create",
+                error:error
             })
     }
 }
