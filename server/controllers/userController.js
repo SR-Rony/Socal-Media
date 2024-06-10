@@ -1,3 +1,4 @@
+const jwtToken = require("../helpers/token");
 const { emailValidation, userValidation, userNameValidation } = require("../helpers/validation");
 const Users = require("../models/userModel");
 
@@ -38,7 +39,6 @@ const registerUser = async (req,res)=>{
     const addUserName = fname + lname;
     const finalUserName = await userNameValidation(addUserName)
 
-
        const newUser = await new Users({
             fname,
             lname,
@@ -51,6 +51,10 @@ const registerUser = async (req,res)=>{
        })
 
        newUser.save()
+
+   const emailVerify = jwtToken({id:newUser._id.toString()},'10m')
+   console.log(emailVerify);
+
 
       return res.status(200).send({
                 success:true,
